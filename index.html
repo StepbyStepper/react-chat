@@ -10,7 +10,13 @@
         <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
         <script src="https://unpkg.com/@pusher/chatkit"></script>
         <script src="https://unpkg.com/babel-standalone@latest/babel.min.js"></script>
+
         <script type="text/babel">
+          const instanceLocator = "v1:us1:41028d92-1bd4-4ac6-871b-834dd46c53e0"
+          const testToken = "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/41028d92-1bd4-4ac6-871b-834dd46c53e0/token"
+          const username = "stepbystepper"
+          const roomId = 19377648
+
           const DUMMY_DATA = [
             {
               senderId: "perborgen",
@@ -44,7 +50,6 @@
           }
 
           class App extends React.Component {
-            
             constructor() {
               super()
               this.state = {
@@ -52,6 +57,10 @@
               }
             }
             
+            componentDidMount() {
+              
+            }
+
             render() {
               return (
                 <div className="app">
