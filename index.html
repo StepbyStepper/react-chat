@@ -65,6 +65,20 @@
                   url: testToken
                 })
               })
+
+              chatManager.connect().then(currentUser => {
+                // подключаемся к API
+                currentUser.subscribeToRoom({
+                  roomId: roomId,
+                  hooks: {
+                    onNewMessage: message => {
+                      this.setState({
+                        message: [...this.state.message, message]
+                      })
+                    }
+                  }
+                })
+              })
             }
 
             render() {
@@ -72,6 +86,21 @@
                 <div className="app">
                   <MessageList messages={this.state.messages} />
                </div>
+              )
+            }
+          }
+
+          class SendMessageForm extends React.Component {
+            render() {
+              return (
+                <form
+                  className="send-message-form">
+                  <input
+                    onChange={this.handleChange}
+                    value={this.state.message}
+                    placeholder="Type your message and hit ENTER"
+                    type="text" />
+                </form>
               )
             }
           }
