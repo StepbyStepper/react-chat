@@ -58,7 +58,13 @@
             }
             
             componentDidMount() {
-              
+              const chatManager = new Chatkit.ChatManager({
+                instanceLocator: instanceLocator,
+                userId: username,
+                tokenProvider: new Chatkit.TokenProvider({
+                  url: testToken
+                })
+              })
             }
 
             render() {
