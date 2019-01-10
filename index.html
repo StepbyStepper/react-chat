@@ -37,12 +37,13 @@
 
         chatManager.connect().then(currentUser => {
           // подключаемся к API
-          currentUser.subscribeToRoom({
+          this.currentUser = currentUser
+          this.currentUser.subscribeToRoom({
             roomId: roomId,
             hooks: {
               onNewMessage: message => {
                 this.setState({
-                  message: [...this.state.message, message]
+                  message: [...this.state.messages, message]
                 })
               }
             }
@@ -60,35 +61,30 @@
       render() {
         return (
           <div className="app">
-            <MessageList messages={this.state.messages} />
+            <MessageList roomId={this.state.roomId} messages={this.state.messages} />
             <SendMessageForm sendMessage={this.sendMessage} />
          </div>
-        )
+        );
       }
     }
 
 
-
-  class MessageList extends React.Component {
-    render() {
-      return (
-        <ul className="message-list">
-          {this.props.messages.map(message => {
+    class MessageList extends React.Component {
+        render() {
             return (
-             <li key={message.id}>
-               <div>
-                 {message.senderId}
-               </div>
-               <div>
-                 {message.text}
-               </div>
-             </li>
-           )
-         })}
-       </ul>
-      )
+                <ul className="message-list">
+                    {this.props.messages.map((message, index) => {
+                        return (
+                          <li  key={message.id} className="message">
+                            <div>{message.senderId}</div>
+                            <div>{message.text}</div>
+                          </li>
+                        )
+                    })}
+                </ul>
+            )
+        }
     }
-  }
 
 
 
@@ -117,17 +113,17 @@
     }
 
     render() {
-      return (
-        <form
-          onSubmit={this.handleSubmit}
-          className="send-message-form">
-          <input
-            onChange={this.handleChange}
-            value={this.state.message}
-            placeholder="Type your message and hit ENTER"
-            type="text" />
-        </form>
-      )
+        return (
+            <form
+                onSubmit={this.handleSubmit}
+                className="send-message-form">
+                <input
+                    onChange={this.handleChange}
+                    value={this.state.message}
+                    placeholder="Type your message and hit ENTER"
+                    type="text" />
+            </form>
+        )
     }
   }
 
