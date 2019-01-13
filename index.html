@@ -15,7 +15,7 @@
     const instanceLocator = "v1:us1:41028d92-1bd4-4ac6-871b-834dd46c53e0"
     const testToken = "https://us1.pusherplatform.io/services/chatkit_token_provider/v1/41028d92-1bd4-4ac6-871b-834dd46c53e0/token"
     const username = "stepbystepper"
-    const roomId = 19377648
+    const roomId = 19377952
 
     class App extends React.Component {
       constructor() {
@@ -43,7 +43,7 @@
             hooks: {
               onNewMessage: message => {
                 this.setState({
-                  message: [...this.state.messages, message]
+                  messages: [...this.state.messages, message]
                 })
               }
             }
@@ -61,9 +61,13 @@
       render() {
         return (
           <div className="app">
-            <MessageList roomId={this.state.roomId} messages={this.state.messages} />
-            <SendMessageForm sendMessage={this.sendMessage} />
-         </div>
+            <Title />
+            <MessageList
+                roomId={this.state.roomId}
+                messages={this.state.messages} />
+            <SendMessageForm
+                sendMessage={this.sendMessage} />
+          </div>
         );
       }
     }
@@ -105,11 +109,11 @@
     }
 
     handleSubmit(e) {
-      e.preventDefault()
-      this.props.sendMessage(this.state.message)
-      this.setState({
-        message: ''
-      })
+        e.preventDefault()
+        this.props.sendMessage(this.state.message)
+        this.setState({
+            message: ''
+        })
     }
 
     render() {
@@ -125,6 +129,10 @@
             </form>
         )
     }
+  }
+  
+  function Title() {
+    return <p className="title">React chat app</p>
   }
 
   ReactDOM.render(<App />, document.getElementById('root'));
